@@ -15,11 +15,10 @@ Platforms supported:
 #include "libwordle.h"
 
 void play(void) {
-  Wordle w;
   char buf[6];
   int iter = 1;
-  int i;
-
+  int i, result;
+  
   libwordle_initindex(&w, ((unsigned int)rand()) % NUMWORDS);
   printf("Word is: %s\n", w.target);
   do {
@@ -28,7 +27,9 @@ void play(void) {
     for (i=0; i<5; i++) {
       buf[i] = toupper(buf[i]);
     }
-    test_guess(buf);
+    result = libwordle_update(&w, buf);
+    if (result == 0) continue;
+    if (result == 2) break;
   } while (++iter <= 7);
 }
 ```
