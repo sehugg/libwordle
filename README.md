@@ -3,13 +3,14 @@ libwordle
 
 [Open this project in 8bitworkshop](http://8bitworkshop.com/redir.html?platform=c64&githubURL=https%3A%2F%2Fgithub.com%2Fsehugg%2Flibwordle&file=libwordle.c).
 
-[Wordle](https://www.powerlanguage.co.uk/wordle/) is a game by Josh Wardle.
-
 This is a C library for making Wordle-like games for 8-bit systems.
 
 Platforms supported:
 
 * C64 (cc65)
+
+[Wordle](https://www.powerlanguage.co.uk/wordle/) is a game by Josh Wardle.
+
 
 ## Example
 
