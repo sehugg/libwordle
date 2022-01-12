@@ -64,15 +64,17 @@ char libwordle_initindex(Wordle* state, int targetIndex) {
 }
 
 char libwordle_update(Wordle* state, const char* guess) {
-  int i, j;
+  int i, j, correct;
   if (!libwordle_isvalid(guess)) {
     return 0;
   }
+  correct = 0;
   for (i=0; i<5; i++) {
     char result = GUESS_GREY;
     char letter = guess[i];
     if (letter == state->target[i]) {
       result = GUESS_GREEN;
+      correct++;
     } else {
       for (j=0; j<5; j++)
         if (letter == state->target[j])
@@ -81,7 +83,7 @@ char libwordle_update(Wordle* state, const char* guess) {
     state->guesses[i] = result;
     state->status[LETTER(letter)] |= 1 << result;
   }
-  return 1;
+  return correct == 5 ? 2 : 1;
 }
 
 // DATA
@@ -100,10 +102,11 @@ void test_word(const char* word) {
   printf("%8s: %d\n", word, libwordle_isvalid(word));
 }
 
-void test_guess(const char* word) {
-  int i, s;
+int test_guess(const char* word) {
+  int i, s, result;
   textcolor(COLOR_WHITE);
-  printf("%8s: %d -> ", word, libwordle_update(&w, word));
+  result = libwordle_update(&w, word);
+  printf("%8s: %d -> ", word, result);
   for (i=0; i<5; i++) {
     printf("%d ", w.guesses[i]);
   }
@@ -117,12 +120,13 @@ void test_guess(const char* word) {
     }
   }
   printf("\n");
+  return result;
 }
 
 void play(void) {
   char buf[6];
   int iter = 1;
-  int i;
+  int i, result;
   
   libwordle_initindex(&w, ((unsigned int)rand()) % NUMWORDS);
   printf("Word is: %s\n", w.target);
@@ -132,7 +136,9 @@ void play(void) {
     for (i=0; i<5; i++) {
       buf[i] = toupper(buf[i]);
     }
-    test_guess(buf);
+    result = test_guess(buf);
+    if (result == 0) continue;
+    if (result == 2) break;
   } while (++iter <= 7);
 }
 

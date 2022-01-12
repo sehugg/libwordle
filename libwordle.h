@@ -39,6 +39,7 @@ char libwordle_initindex(Wordle* state, int targetIndex);
 
 // update structure with a single guess
 // return 1 if valid guess, 0 if not
+// return 2 if we won the game!
 char libwordle_update(Wordle* state, const char* guess);
 
 #endif
