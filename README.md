@@ -42,3 +42,5 @@ void play(void) {
 The test program takes about 24 KB, which includes:
 * 1.5 KB for the library code
 * 18 KB for the dictionary
+
+Uncomment `#define LIBWORDLE_SMALLANDSLOW` to save 4 KB but make dictionary checks really really slow.
