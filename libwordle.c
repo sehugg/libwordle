@@ -11,6 +11,8 @@
 
 #include "libwordle.h"
 
+//#define LIBWORDLE_SMALLANDSLOW
+
 #ifdef LIBWORDLE_SMALLANDSLOW
 
 // dictionary data
@@ -49,9 +51,10 @@ char libwordle_isvalid(const char* word) {
 char libwordle_initindex(Wordle* state, int targetIndex) {
   int i, n;
   char shift = 0;
-  uint32_t current = 0;
+  static uint32_t current;
   // search the dictionary
   n = 0;
+  current = 0;
   for (i=0; i<sizeof(DICTDATA); i++) {
     char b = DICTDATA[i];
     current ^= ((uint32_t)(b & 0x7f)) << shift;
