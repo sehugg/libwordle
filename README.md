@@ -36,3 +36,9 @@ void play(void) {
   } while (++iter <= 7);
 }
 ```
+
+## Technical Info
+
+The test program takes about 24 KB, which includes:
+* 1.5 KB for the library code
+* 18 KB for the dictionary
