@@ -8,8 +8,6 @@
 #define GUESS_YELLOW 1
 #define GUESS_GREEN  2
 
-#define NUMWORDS 8938
-
 // structure that holds information
 // for a single guess
 // - the target word
